@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Circle extends Figure {
 
-  int radius;
+  int radius,diameter;
   Color backgroundColor;
 
   public Circle (int x, int y, int radius,Color line,Color background) {
@@ -20,13 +20,34 @@ public class Circle extends Figure {
     this.radius=this.radius+dradius;
   };
 
+  public boolean itsInside(int xCoordinate,int yCoordinate){
+
+    // (x-x0)^2 + (y-y0)^2 = raio^2
+
+    int centerX = this.x + this.radius;
+    int centerY = this.y + this.radius;
+    int diffX = (xCoordinate - centerX);
+    int diffY = (yCoordinate - centerY);
+
+    diffX = diffX*diffX;
+    diffY = diffY*diffY;
+    
+    int diffSum = diffX+diffY;
+
+    if(diffSum<=(radius*radius)){
+      return true;
+    }
+
+    return false;
+}
+
   public void paint (Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
     g2d.setPaint(lineColor);
     g2d.setColor(backgroundColor);
-    g2d.fillRoundRect(this.x, this.y, this.radius, this.radius, this.radius, this.radius);
+    g2d.fillRoundRect(this.x, this.y, this.radius*2, this.radius*2, this.radius*2, this.radius*2);
     g2d.setColor(lineColor);
-    g2d.drawRoundRect(this.x, this.y, this.radius, this.radius, this.radius, this.radius);
+    g2d.drawRoundRect(this.x, this.y, this.radius*2, this.radius*2, this.radius*2, this.radius*2);
   }
 
   public void changeColor(Color line,Color background){

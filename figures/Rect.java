@@ -24,6 +24,16 @@ public class Rect extends Figure{
       g2d.drawRect(this.x,this.y, this.w,this.h);
     }
 
+    public boolean itsInside(int xCoordinate,int yCoordinate){
+        if(xCoordinate>=this.x && xCoordinate<=this.x+w){
+            if(yCoordinate>=this.y && yCoordinate<=this.y+h){
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
     public void drag(int dx,int dy){
         this.x=this.x+dx;
         this.y=this.y+dy;
