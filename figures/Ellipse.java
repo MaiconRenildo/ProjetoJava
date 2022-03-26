@@ -50,14 +50,9 @@ public class Ellipse extends Figure {
     return false;
   }
 
-    public void drag(int dx,int dy){
-      this.x=this.x+dx;
-      this.y=this.y+dy;
-    };
-
-    public void changeColor(Color border,Color background){
-      this.backgroundColor = background;
-      this.lineColor = border;
-    }
+  public void changeColor(Color border,Color background){
+    this.backgroundColor = background;
+    this.lineColor = border;
+  }
 
 }

@@ -2,7 +2,7 @@ package figures;
 import java.awt.*;
 
 public class Rect extends Figure{
-    int x, y;
+
     int w, h;
     Color backgroundColor;
 
@@ -34,13 +34,9 @@ public class Rect extends Figure{
         return false;
     }
 
-    public void drag(int dx,int dy){
-        this.x=this.x+dx;
-        this.y=this.y+dy;
-    };
-
     public void changeColor(Color line,Color background){
         this.backgroundColor = background;
         this.lineColor = line;
     }
+    
 }

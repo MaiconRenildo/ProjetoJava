@@ -14,12 +14,6 @@ public class Circle extends Figure {
     this.lineColor = line;
   }
 
-  public void drag(int dx,int dy,int dradius){
-    this.x=this.x+dx;
-    this.y=this.y+dy;
-    this.radius=this.radius+dradius;
-  };
-
   public boolean itsInside(int xCoordinate,int yCoordinate){
 
     // (x-x0)^2 + (y-y0)^2 = raio^2
