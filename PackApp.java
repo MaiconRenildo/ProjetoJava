@@ -1,9 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Random;
 import javax.swing.*;
-
 import figures.*;
 import menu.Menu;
 
@@ -14,13 +12,16 @@ class PackApp {
     }
 }
 
-class PackFrame extends JFrame {
+class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
 
+    Figure focus = null;
     ArrayList<Figure> figs = new ArrayList<Figure>();
     Menu menu;
-    int w,h;
+    int w,h,x,y,patternSize;
+    JLabel mousePosition;
 
     PackFrame () {
+
         this.addWindowListener (
             new WindowAdapter() {
                 public void windowClosing (WindowEvent e) {
@@ -28,72 +29,90 @@ class PackFrame extends JFrame {
                 }
             }
         );
+
         this.setTitle("Java Packages");
         this.setSize(480, 480);
         this.setVisible(true);
+        this.addMouseMotionListener(this);
+        this.addMouseListener(this);       
 
         this.addKeyListener(new KeyAdapter(){
 
           public void keyPressed(KeyEvent key){
 
-            Random random =  new Random();
+            patternSize = 60;
 
-            int xPosition = random.nextInt(w)+50;
-            int yPosition = random.nextInt(h)+25;
-            int width = random.nextInt(50);
-            int height = random.nextInt(50);
-
-            if(xPosition+width>w){
-              xPosition=xPosition-width-53;
+            switch(key.getKeyChar()){
+              case 'e':
+                figs.add(new Ellipse(x,y, patternSize/2,patternSize/4,new Color(0,0,0),new Color(255,255,255)));
+                repaint();
+                break;
+              case 'r':
+                figs.add(new Rect(x,y, patternSize,patternSize,new Color(0,0,0),new Color(255,255,255)));
+                repaint();
+                break;
+              case 'l':
+                figs.add(new Line(x,y,x+patternSize,y,new Color(0,0,0)));
+                repaint();
+                break;
+              case 'c':
+                figs.add(new Circle(x,y,patternSize/2,new Color(0,0,0),new Color(255,255,255)));
+                repaint();
+                break;
             }
-
-            if(yPosition+height>h){
-              yPosition=yPosition-height-28;
-            }
-
-            int r = random.nextInt(255);
-            int g = random.nextInt(255);
-            int b = random.nextInt(255);
-
-            if(key.getKeyChar() == 'e'){
-              figs.add(new Ellipse(xPosition,yPosition, width,height,new Color(r,g,b),new Color(g,b,r)));
-              repaint();
-            }
-
-            if(key.getKeyChar()=='r'){
-              figs.add(new Rect(xPosition,yPosition, width,height,new Color(r,g,b),new Color(g,b,r)));
-              repaint();
-            }
-
-            if(key.getKeyChar()=='l'){
-              figs.add(new Line(xPosition,yPosition,xPosition+width,yPosition+height,new Color(r,g,b)));
-              repaint();
-            }
-
-            if(key.getKeyChar()=='c'){
-
-              if(yPosition+width>h){
-                yPosition=yPosition-height-28;
-              }
-
-              figs.add(new Circle(xPosition,yPosition,width,new Color(r,g,b),new Color(g,b,r)));
-              repaint();
-            }
-            
           }
 
         });
     }
 
 
+    //Mouse motion
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        x = e.getX();
+        y = e.getY();
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+      focus.drag(e.getX(), e.getY());
+      repaint();
+    }
+
+    //Mouse listener
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    }
+    @Override
+    public void mouseEntered(MouseEvent e) {
+      System.out.println("coordenadas : ["+e.getX()+","+e.getY()+"]");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+      focus = null;
+      for(Figure i:this.figs){
+        if(i.itsInside(e.getX(), e.getY())){
+          this.focus = i;
+          System.out.println("foco setado :["+e.getX()+","+e.getY()+"]");
+        }
+      }
+    }
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
     public void paint (Graphics g) {
         super.paint(g);
         this.getScreenLimits();
         this.drawFigures(g);
-        this.Menu(g);
+        //this.Menu(g);
     }
-
-
+    
     public void drawFigures(Graphics g){
       for(Figure i:this.figs){
         i.paint(g);
@@ -109,6 +128,5 @@ class PackFrame extends JFrame {
       this.menu = new Menu(w,h);
       this.menu.paint(g);
     }
-
-    
+ 
 }
