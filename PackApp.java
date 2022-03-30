@@ -98,6 +98,7 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
       for(Figure i:this.figs){
         if(i.itsInside(e.getX(), e.getY())){
           this.focus = i;
+          focus.setFocus(e.getX(), e.getY());
           System.out.println("foco setado :["+e.getX()+","+e.getY()+"]");
         }
       }
