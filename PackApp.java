@@ -42,29 +42,56 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
 
             patternSize = 60;
 
-            switch(key.getKeyChar()){
-              case 'e':
-                figs.add(new Ellipse(x,y, patternSize/2,patternSize/4,new Color(0,0,0),new Color(255,255,255)));
+            switch(key.getKeyCode()){
+
+              case 37:
+                focus.moveLeft();
                 repaint();
                 break;
-              case 'r':
-                figs.add(new Rect(x,y, patternSize,patternSize,new Color(0,0,0),new Color(255,255,255)));
+              case 38:
+                focus.moveUp();
                 repaint();
                 break;
-              case 'l':
-                figs.add(new Line(x,y,x+patternSize,y,new Color(0,0,0)));
+              case 39:
+                focus.moveRight();
                 repaint();
                 break;
-              case 'c':
+              case 40:
+                focus.moveDown();
+                repaint();
+                break;
+              case 67:
                 figs.add(new Circle(x,y,patternSize/2,new Color(0,0,0),new Color(255,255,255)));
                 repaint();
                 break;
+              case 69:
+                figs.add(new Ellipse(x,y, patternSize/2,patternSize/4,new Color(0,0,0),new Color(255,255,255)));
+                repaint();
+                break;
+              case 76:
+                figs.add(new Line(x,y,x+patternSize,y,new Color(0,0,0)));
+                repaint();
+                break;
+              case 82:
+                figs.add(new Rect(x,y, patternSize,patternSize,new Color(0,0,0),new Color(255,255,255)));
+                repaint();
+                break;
+
             }
           }
 
         });
     }
 
+    private void verifyFocus(MouseEvent e){
+      focus = null;
+      for(Figure i:this.figs){
+        if(i.itsInside(e.getX(), e.getY())){
+          this.focus = i;
+          focus.setFocus(e.getX(), e.getY());
+        }
+      }
+    }
 
     //Mouse motion
     @Override
@@ -82,7 +109,9 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
     //Mouse listener
     @Override
     public void mouseClicked(MouseEvent e) {
+      verifyFocus(e);
     }
+
     @Override
     public void mouseEntered(MouseEvent e) {
       System.out.println("coordenadas : ["+e.getX()+","+e.getY()+"]");
@@ -94,15 +123,9 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
-      focus = null;
-      for(Figure i:this.figs){
-        if(i.itsInside(e.getX(), e.getY())){
-          this.focus = i;
-          focus.setFocus(e.getX(), e.getY());
-          System.out.println("foco setado :["+e.getX()+","+e.getY()+"]");
-        }
-      }
+      verifyFocus(e);
     }
+
     @Override
     public void mouseReleased(MouseEvent e) {
     }
