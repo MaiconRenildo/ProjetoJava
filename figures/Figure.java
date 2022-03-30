@@ -13,6 +13,8 @@ public abstract class Figure {
   int previousX = -1;
   int previousY = -1;
 
+  int dMove = 3;
+
   public void drag(int newX,int newY){
 
     int dx = newX - this.previousX;
@@ -23,11 +25,28 @@ public abstract class Figure {
 
     previousX = newX;
     previousY = newY;
-    
+
   };
 
   public void setFocus(int mouseX,int mouseY){
     this.previousX = mouseX;
     this.previousY = mouseY;
-  }  
+  }
+
+  public void moveRight(){
+    this.x = this.x+this.dMove;
+  }
+
+  public void moveLeft(){
+    this.x = this.x-this.dMove;
+  }
+
+  public void moveUp(){
+    this.y = this.y-this.dMove;
+  }
+
+  public void moveDown(){
+    this.y = this.y+this.dMove;
+  }
+
 }
