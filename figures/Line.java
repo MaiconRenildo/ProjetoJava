@@ -44,4 +44,25 @@ public class Line extends Figure {
       previousY = newY;
       
     };
+
+    public void moveRight(){
+      this.x = this.x+this.dMove;
+      this.endX = this.endX+this.dMove;
+    }
+  
+    public void moveLeft(){
+      this.x = this.x-this.dMove;
+      this.endX = this.endX-this.dMove;
+    }
+  
+    public void moveUp(){
+      this.y = this.y-this.dMove;
+      this.endY = this.endY-this.dMove;
+    }
+  
+    public void moveDown(){
+      this.y = this.y+this.dMove;
+      this.endY = this.endY+this.dMove;
+    }
+    
 }
