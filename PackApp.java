@@ -43,7 +43,6 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
             patternSize = 60;
 
             switch(key.getKeyCode()){
-
               case 37:
                 focus.moveLeft();
                 repaint();
@@ -74,6 +73,11 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
                 break;
               case 82:
                 figs.add(new Rect(x,y, patternSize,patternSize,new Color(0,0,0),new Color(255,255,255)));
+                repaint();
+                break;
+              case 127:
+                figs.remove(focus);
+                focus = null;
                 repaint();
                 break;
 
