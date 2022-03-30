@@ -29,4 +29,19 @@ public class Line extends Figure {
       g2d.setPaint(lineColor);
       g2d.drawLine(x, y, endX, endY); 
     }
+
+    public void drag(int newX,int newY){
+
+      int dx = newX - this.previousX;
+      int dy = newY - this.previousY;
+  
+      this.x = this.x+dx;
+      this.y = this.y+dy;
+      this.endX = this.endX+dx;
+      this.endY = this.endY+dy;
+  
+      previousX = newX;
+      previousY = newY;
+      
+    };
 }
