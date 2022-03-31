@@ -49,4 +49,12 @@ public class Circle extends Figure {
     this.lineColor = line;
   }
 
+  public void increaseSize(){
+    this.radius = this.radius+this.dMove;
+  }
+
+  public void decreaseSize(){
+    this.radius = this.radius-this.dMove;
+  }
+
 }

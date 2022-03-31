@@ -38,5 +38,15 @@ public class Rect extends Figure{
         this.backgroundColor = background;
         this.lineColor = line;
     }
+
+    public void increaseSize(){
+        this.w = this.w+this.dMove;
+        this.h = this.h+this.dMove;
+    }
+  
+    public void decreaseSize(){
+        this.w = this.w-this.dMove;
+        this.h = this.h-this.dMove;
+    }
     
 }

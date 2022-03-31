@@ -55,4 +55,14 @@ public class Ellipse extends Figure {
     this.lineColor = border;
   }
 
+  public void increaseSize(){
+    this.w = this.w+this.dMove;
+    this.h = this.h+this.dMove;
+  }
+
+  public void decreaseSize(){
+    this.w = this.w-this.dMove;
+    this.h = this.h-this.dMove;
+  }
+
 }

@@ -75,6 +75,14 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
                 figs.add(new Rect(x,y, patternSize,patternSize,new Color(0,0,0),new Color(255,255,255)));
                 repaint();
                 break;
+              case 107:
+                focus.increaseSize();
+                repaint();
+                break;
+              case 109:
+                focus.decreaseSize();
+                repaint();
+                break;
               case 127:
                 figs.remove(focus);
                 focus = null;
