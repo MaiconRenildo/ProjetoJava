@@ -31,6 +31,11 @@ public abstract class Figure {
   public void setFocus(int mouseX,int mouseY){
     this.previousX = mouseX;
     this.previousY = mouseY;
+    lineColor = new Color(255,0,0);
+  }
+
+  public void removeFocus(){
+    lineColor = new Color(0,0,0);
   }
 
   public void moveRight(){
