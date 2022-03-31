@@ -88,11 +88,18 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
     }
 
     private void verifyFocus(MouseEvent e){
-      focus = null;
+
+      if(focus!=null){
+        focus.removeFocus();
+        repaint();
+        focus = null;
+      }
+
       for(Figure i:this.figs){
         if(i.itsInside(e.getX(), e.getY())){
           this.focus = i;
           focus.setFocus(e.getX(), e.getY());
+          repaint();
         }
       }
     }
