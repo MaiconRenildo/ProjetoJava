@@ -11,7 +11,7 @@ Para executar o projeto é necessário ter o JDK instalado. Tendo-o, basta execu
 ```
 
 ## Funcionalidades
-- [x] Criação de figuras
+- [x] Criação de figura
 - [X] Exclusão de figura
 - [x] Alteração do tamanho de uma figura 
 - [X] Alteração da posição de uma figura
