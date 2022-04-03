@@ -40,4 +40,4 @@ Para alterar o tamanho de uma figura basta selecioná-la e apertar as teclas "+"
 Para alterar a posição de uma figura basta arrastá-la utilizando o mouse ou utilizar as setas do teclado após tê-la selecionado 
 
 ### Alteração da posição Z de uma figura
-Para alterar a posição Z basta apertar a tecla "u" para subir e "i" para descer
+Para alterar a posição Z de uma figura basta selecioná-la e apertar a tecla "u" para subir e "i" para descer
