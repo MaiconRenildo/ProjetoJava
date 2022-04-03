@@ -15,7 +15,7 @@ Para executar o projeto é necessário ter o JDK instalado. Tendo-o, basta execu
 - [X] Exclusão de figura
 - [x] Alteração do tamanho de uma figura 
 - [X] Alteração da posição de uma figura
-- [X] Alteração da posição Z de uma figura
+- [X] Alteração da posição de uma figura no eixo Z
 - [ ] Alteração da cor de fundo de uma figura
 - [ ] Alteração da cor da borda de uma figura
 - [ ] Digitação
@@ -39,5 +39,5 @@ Para alterar o tamanho de uma figura basta selecioná-la e apertar as teclas "+"
 ### Alteração da posição de uma figura
 Para alterar a posição de uma figura basta arrastá-la utilizando o mouse ou utilizar as setas do teclado após tê-la selecionado 
 
-### Alteração da posição Z de uma figura
+### Alteração da posição de uma figura no eixo Z
 Para alterar a posição Z de uma figura basta selecioná-la e apertar a tecla "u" para subir e "i" para descer
