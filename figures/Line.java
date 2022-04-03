@@ -91,24 +91,30 @@ public class Line extends Figure {
   
     public void decreaseSize(){
 
-      if(this.endY == this.y){
-
-        this.x = this.x+this.dMove;
-        this.endX = this.endX-this.dMove;
-
-      }else if(this.endX == this.x){
-
-        this.y = this.y+this.dMove;
-        this.endY = this.endY-this.dMove;
+      if(this.endX==this.x && this.endY==this.y){
 
       }else{
 
-        this.x = this.x+this.dMove;
-        this.endX = this.endX-this.dMove;
+        if(this.endY == this.y){
 
-        this.y = this.y+this.dMove;
-        this.endY = this.endY-this.dMove;
-
+          this.x = this.x+this.dMove;
+          this.endX = this.endX-this.dMove;
+  
+        }else if(this.endX == this.x){
+  
+          this.y = this.y+this.dMove;
+          this.endY = this.endY-this.dMove;
+  
+        }else{
+  
+          this.x = this.x+this.dMove;
+          this.endX = this.endX-this.dMove;
+  
+          this.y = this.y+this.dMove;
+          this.endY = this.endY-this.dMove;
+  
+        }
+      
       }
 
     }

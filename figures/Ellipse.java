@@ -61,8 +61,10 @@ public class Ellipse extends Figure {
   }
 
   public void decreaseSize(){
-    this.w = this.w-this.dMove;
-    this.h = this.h-this.dMove;
+    if(this.w>0 && this.h>0){
+      this.w = this.w-this.dMove;
+      this.h = this.h-this.dMove;
+    }
   }
 
 }
