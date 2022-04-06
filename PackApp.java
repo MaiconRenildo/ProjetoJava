@@ -35,7 +35,7 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
         this.setVisible(true);
         this.addMouseMotionListener(this);
         this.addMouseListener(this);       
-
+        this.setFocusTraversalKeysEnabled(false);
         this.addKeyListener(new KeyAdapter(){
 
           public void keyPressed(KeyEvent key){
@@ -43,6 +43,11 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
             patternSize = 60;
 
             switch(key.getKeyCode()){
+
+              case 9:
+                changeFocus();
+                repaint();
+                break;
               case 37:
                 focus.moveLeft();
                 repaint();
@@ -96,12 +101,44 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
                 focus = null;
                 repaint();
                 break;
+
             }
           }
 
         });
     }
 
+    private void changeFocus(){
+
+      int size = figs.size();
+      if(size>=1){
+
+        if(focus!=null){
+
+          int index = figs.indexOf(focus);
+
+          if(index<size-1){
+            focus.removeFocus();
+            focus = figs.get(index+1);
+            focus.setFocus(this.x, this.y);
+
+          }else{
+            focus.removeFocus();
+            focus = figs.get(0);
+            focus.setFocus(this.x,this.y);
+
+          }
+          
+        }else{
+          focus = figs.get(0);
+          focus.setFocus(this.x, this.y);
+          repaint();
+
+        }
+        
+      }
+        
+    }
     private void verifyFocus(MouseEvent e){
 
       if(focus!=null){
