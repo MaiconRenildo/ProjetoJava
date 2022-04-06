@@ -45,7 +45,7 @@ public class Rect extends Figure{
     }
   
     public void decreaseSize(){
-        if(this.w>0 && this.h>0){
+        if(this.w>6 && this.h>6){
             this.w = this.w-this.dMove;
             this.h = this.h-this.dMove;
         }

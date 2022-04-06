@@ -93,8 +93,10 @@ public class Line extends Figure {
 
       if(this.endX==this.x && this.endY==this.y){
 
-      }else{
+      }else if((this.endX-this.x)<=6 && (this.endY-this.y)<=6){
 
+      }else{
+      
         if(this.endY == this.y){
 
           this.x = this.x+this.dMove;

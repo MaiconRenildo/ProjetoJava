@@ -54,7 +54,7 @@ public class Circle extends Figure {
   }
 
   public void decreaseSize(){
-    if(this.radius>0){
+    if(this.radius>6){
       this.radius = this.radius-this.dMove;
     }
   }
