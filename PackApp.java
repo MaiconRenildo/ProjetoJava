@@ -154,7 +154,9 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
 
     @Override
     public void mouseDragged(MouseEvent e) {
-      focus.drag(e.getX(), e.getY());
+      if(focus!=null){
+        focus.drag(e.getX(), e.getY());
+      }
       this.x = e.getX();
       this.y = e.getY();
       repaint();
