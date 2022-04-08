@@ -41,11 +41,18 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
           public void keyPressed(KeyEvent key){
 
             patternSize = 60;
-
             switch(key.getKeyCode()){
 
               case 9:
                 changeFocus();
+                repaint();
+                break;
+              case 18:
+                changeLineColor();
+                repaint();
+                break;
+              case 32:
+                changeBackgroundColor();
                 repaint();
                 break;
               case 37:
@@ -108,6 +115,17 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
         });
     }
 
+    private void changeBackgroundColor(){
+      if(this.focus!=null){
+        this.focus.changeBackgroundColor();
+      }
+    }
+
+    private void changeLineColor(){
+      if(this.focus!=null){
+        this.focus.changeLineColor();
+      }
+    }
     private void changeFocus(){
 
       int size = figs.size();
