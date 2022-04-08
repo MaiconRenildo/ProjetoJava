@@ -4,7 +4,6 @@ import java.awt.*;
 public class Circle extends Figure {
 
   int radius,diameter;
-  Color backgroundColor;
 
   public Circle (int x, int y, int radius,Color line,Color background) {
     this.x = x;

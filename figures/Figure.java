@@ -9,7 +9,7 @@ public abstract class Figure {
   public abstract void paint(Graphics g);
   public abstract boolean itsInside(int xCoordinate,int yCoordinate);
 
-  Color lineColor;
+  Color lineColor,backgroundColor;
   int x,y;
 
   int previousX = -1;

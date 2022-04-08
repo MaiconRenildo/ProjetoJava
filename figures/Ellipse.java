@@ -5,7 +5,6 @@ import java.awt.*;
 public class Ellipse extends Figure {
 
     int w, h;
-    Color backgroundColor;
 
     public Ellipse (int x, int y, int w, int h,Color line,Color background) {
       this.x = x;
