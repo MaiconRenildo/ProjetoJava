@@ -9,6 +9,7 @@ public abstract class Figure {
   public abstract void paint(Graphics g);
   public abstract boolean itsInside(int xCoordinate,int yCoordinate);
 
+  Color previousLineColor,previousBackgroundColor;
   Color lineColor,backgroundColor;
   int x,y;
 
@@ -33,11 +34,12 @@ public abstract class Figure {
   public void setFocus(int mouseX,int mouseY){
     this.previousX = mouseX;
     this.previousY = mouseY;
-    lineColor = new Color(255,0,0);
+    this.previousLineColor = this.lineColor;
+    this.lineColor = new Color(255,0,0);
   }
 
   public void removeFocus(){
-    lineColor = new Color(0,0,0);
+    this.lineColor = this.previousLineColor;
   }
 
   public void moveRight(){
