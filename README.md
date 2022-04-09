@@ -30,6 +30,7 @@ Para criar uma figura basta selecionar as teclas de acordo com a tabela abaixo:
 |  Quadrado |  r |
 |  Círculo |  c |
 |  Elipse |  e |
+|  Triângulo |  t |
 |  Linha |  l |
 
 ### Exclusão de figura
