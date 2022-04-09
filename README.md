@@ -19,6 +19,7 @@ Para executar o projeto é necessário ter o JDK instalado. Tendo-o, basta execu
 - [X] Alteração da cor de fundo
 - [X] Alteração da cor da borda
 - [X] Alteração da figura em foco
+- [X] Esconder ou mostrar menu
 - [ ] Digitação
 - [ ] Desenho livre
 
@@ -44,11 +45,14 @@ Para alterar a posição de uma figura basta arrastá-la utilizando o mouse ou u
 Para alterar a posição Z de uma figura basta selecioná-la e apertar a tecla "u" para subir e "i" para descer
 
 ### Alteração da cor de fundo
-Para alterar a cor de fundo de uma figura basta selecioná-la e apertar a tecla espaço. A cor será selecionada de forma randômica
+Para alterar a cor de fundo de uma figura basta selecioná-la e escolher a cor desejada na palheta de cores
 
 ### Alteração da cor da borda
-Para alterar a cor da borda de uma figura basta selecioná-la e apertar a tecla "alt". A cor será selecionada de forma randômica
+Por padrão, ao selecionar uma figura e escolher uma das cores da palheta, a cor de fundo da figura é alterada. Para que esse processo altere a cor da borda é preciso que a tecla espaço seja clicada. Feito isso, basta selecionar a figura e escolher a cor desejada na palheta de cores. Para voltar a configuração anterior basta clicar na tecla espaço novamente
 
 ### Alteração da figura em foco
 Para alterar a figura em foco basta apertar a tecla "tab"
+
+### Esconder ou mostrar o menu
+Para esconder ou mostrar o menu basta clicar na tecla "esc"
 
