@@ -16,118 +16,127 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
 
     Figure focus = null;
     ArrayList<Figure> figs = new ArrayList<Figure>();
-    Menu menu;
+    Menu menu = new Menu(480,480);
     int w,h,x,y,patternSize;
     JLabel mousePosition;
 
     PackFrame () {
 
-        this.addWindowListener (
-            new WindowAdapter() {
-                public void windowClosing (WindowEvent e) {
-                    System.exit(0);
-                }
+      this.addWindowListener (
+        new WindowAdapter() {
+            public void windowClosing (WindowEvent e) {
+                System.exit(0);
             }
-        );
+        }
+      );
 
-        this.setTitle("Java Packages");
-        this.setSize(480, 480);
-        this.setVisible(true);
-        this.addMouseMotionListener(this);
-        this.addMouseListener(this);       
-        this.setFocusTraversalKeysEnabled(false);
-        this.addKeyListener(new KeyAdapter(){
+      this.setTitle("Java Packages");
+      this.setSize(480, 480);
+      this.setVisible(true);
+      this.addMouseMotionListener(this);
+      this.addMouseListener(this);       
+      this.setFocusTraversalKeysEnabled(false);
+      this.addKeyListener(new KeyAdapter(){
 
-          public void keyPressed(KeyEvent key){
+        public void keyPressed(KeyEvent key){
 
-            patternSize = 60;
-            switch(key.getKeyCode()){
-
-              case 9:
-                changeFocus();
-                repaint();
-                break;
-              case 18:
-                changeLineColor();
-                repaint();
-                break;
-              case 32:
-                changeBackgroundColor();
-                repaint();
-                break;
-              case 37:
-                focus.moveLeft();
-                repaint();
-                break;
-              case 38:
-                focus.moveUp();
-                repaint();
-                break;
-              case 39:
-                focus.moveRight();
-                repaint();
-                break;
-              case 40:
-                focus.moveDown();
-                repaint();
-                break;
-              case 67:
-                figs.add(new Circle(x,y,patternSize/2,new Color(0,0,0),new Color(255,255,255)));
-                repaint();
-                break;
-              case 69:
-                figs.add(new Ellipse(x,y, patternSize/2,patternSize/4,new Color(0,0,0),new Color(255,255,255)));
-                repaint();
-                break;
-              case 73:
-                down_z_order();
-                repaint();
-                break;
-              case 76:
-                figs.add(new Line(x,y,x+patternSize,y,new Color(0,0,0)));
-                repaint();
-                break;
-              case 82:
-                figs.add(new Rect(x,y, patternSize,patternSize,new Color(0,0,0),new Color(255,255,255)));
-                repaint();
-                break;
-              case 85:
-                up_z_order();
-                repaint();
-                break;
-              case 107:
-                focus.increaseSize();
-                repaint();
-                break;
-              case 109:
-                focus.decreaseSize();
-                repaint();
-                break;
-              case 127:
-                figs.remove(focus);
-                focus = null;
-                repaint();
-                break;
-
-            }
+          patternSize = 60;
+          
+          switch(key.getKeyCode()){
+            case 9:
+              changeFocus();
+              repaint();
+              break;
+            case 18:
+              changeLineColor();
+              repaint();
+              break;
+            case 27:
+              changeMenuStatus();
+              repaint();
+              break;
+            case 32:
+              changeBackgroundColor();
+              repaint();
+              break;
+            case 37:
+              focus.moveLeft();
+              repaint();
+              break;
+            case 38:
+              focus.moveUp();
+              repaint();
+              break;
+            case 39:
+              focus.moveRight();
+              repaint();
+              break;
+            case 40:
+              focus.moveDown();
+              repaint();
+              break;
+            case 66:
+              changeColorToUp();
+              break;
+            case 67:
+              figs.add(new Circle(x,y,patternSize/2,new Color(0,0,0),new Color(255,255,255)));
+              repaint();
+              break;
+            case 69:
+              figs.add(new Ellipse(x,y, patternSize/2,patternSize/4,new Color(0,0,0),new Color(255,255,255)));
+              repaint();
+              break;
+            case 73:
+              down_z_order();
+              repaint();
+              break;
+            case 76:
+              figs.add(new Line(x,y,x+patternSize,y,new Color(0,0,0)));
+              repaint();
+              break;
+            case 82:
+              figs.add(new Rect(x,y, patternSize,patternSize,new Color(0,0,0),new Color(255,255,255)));
+              repaint();
+              break;
+            case 85:
+              up_z_order();
+              repaint();
+              break;
+            case 107:
+              focus.increaseSize();
+              repaint();
+              break;
+            case 109:
+              focus.decreaseSize();
+              repaint();
+              break;
+            case 127:
+              figs.remove(focus);
+              focus = null;
+              repaint();
+              break;
           }
+        }
+      });
+    }
 
-        });
+    private void changeColorToUp(){
+      this.menu.changeColorToUp();
     }
 
     private void changeBackgroundColor(){
       if(this.focus!=null){
-        this.focus.changeBackgroundColor();
+        this.focus.changeBackgroundColor(new Color(244,244,0));
       }
     }
 
     private void changeLineColor(){
       if(this.focus!=null){
-        this.focus.changeLineColor();
+        this.focus.changeLineColor(new Color(244,244,0));
       }
     }
-    private void changeFocus(){
 
+    private void changeFocus(){
       int size = figs.size();
       if(size>=1){
 
@@ -151,14 +160,11 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
           focus = figs.get(0);
           focus.setFocus(this.x, this.y);
           repaint();
-
         }
-        
       }
-        
     }
-    private void verifyFocus(MouseEvent e){
 
+    private void verifyFocus(MouseEvent e){
       if(focus!=null){
         focus.removeFocus();
         focus = null;
@@ -172,7 +178,6 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
           i = 0;
         }
       }
-
       repaint();
     }
 
@@ -184,9 +189,7 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
     }
 
     private void down_z_order(){
-
       if(focus!=null){
-
         for (int i = this.figs.size(); i >0; i--) {
           if(i==this.figs.size()){
             this.figs.add(figs.get(i-1));
@@ -197,14 +200,39 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
         figs.remove(focus);
         this.figs.set(0,focus);
       }
-
     }
 
-    //Mouse motion
+    private void drawFigures(Graphics g){
+      for(Figure i:this.figs){
+        i.paint(g);
+      }
+    }
+
+    private void getScreenLimits(){
+      w = this.getWidth();
+      h = this.getHeight();
+    }
+
+    private void upMenu(Graphics g){     
+      this.menu.changeLimits(this.getWidth(), this.getHeight());
+      this.menu.paint(g);
+    }
+
+    private void changeMenuStatus(){
+      this.menu.changeMenuStatus();
+    }
+
+    public void paint (Graphics g) {
+      super.paint(g);
+      this.getScreenLimits();
+      this.drawFigures(g);
+      upMenu(g);
+    }
+    
     @Override
     public void mouseMoved(MouseEvent e) {
-        x = e.getX();
-        y = e.getY();
+      x = e.getX();
+      y = e.getY();
     }
 
     @Override
@@ -217,15 +245,21 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
       repaint();
     }
 
-    //Mouse listener
     @Override
     public void mouseClicked(MouseEvent e) {
-      verifyFocus(e);
+      Figure newFocus = this.menu.verifyFocus(e.getX(), e.getY(), this.focus);
+      if(newFocus!=null){
+        figs.set(figs.indexOf(this.focus), newFocus);
+        this.focus = newFocus;
+      }else{
+        verifyFocus(e);
+      }      
+      repaint();
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-      System.out.println("coordenadas : ["+e.getX()+","+e.getY()+"]");
+      // System.out.println("coordenadas : ["+e.getX()+","+e.getY()+"]");
     }
 
     @Override
@@ -234,7 +268,14 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
-      verifyFocus(e);
+      Figure newFocus = this.menu.verifyFocus(e.getX(), e.getY(), this.focus);
+      if(newFocus!=null){
+        figs.set(figs.indexOf(this.focus), newFocus);
+        this.focus = newFocus;
+      }else{
+        verifyFocus(e);
+      }      
+      repaint();
     }
 
     @Override
@@ -243,28 +284,4 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
       this.y = e.getY();
       repaint();
     }
-
-    public void paint (Graphics g) {
-        super.paint(g);
-        this.getScreenLimits();
-        this.drawFigures(g);
-        //this.Menu(g);
-    }
-    
-    public void drawFigures(Graphics g){
-      for(Figure i:this.figs){
-        i.paint(g);
-      }
-    }
-
-    public void getScreenLimits(){
-      w = this.getWidth();
-      h = this.getHeight();
-    };
-
-    public void Menu(Graphics g){
-      this.menu = new Menu(w,h);
-      this.menu.paint(g);
-    }
- 
 }

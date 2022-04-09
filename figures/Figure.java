@@ -1,7 +1,6 @@
 package figures;
 
 import java.awt.*;
-import java.util.Random;
 public abstract class Figure {
 
   public abstract void increaseSize();
@@ -38,18 +37,26 @@ public abstract class Figure {
     this.lineColor = new Color(255,0,0);
   }
 
+  public Color getBackgroundColor(){
+    return this.backgroundColor;
+  }
+
+  public Color getLineColor(){
+    return this.lineColor;
+  }
+
   public void removeFocus(){
     this.lineColor = this.previousLineColor;
   }
 
-  public void changeLineColor(){
-    this.lineColor = getColor();
-    this.previousLineColor = this.lineColor; 
+  public void changeLineColor(Color color){
+    this.previousLineColor = this.lineColor;
+    this.lineColor = color; 
   }
 
-  public void changeBackgroundColor(){
+  public void changeBackgroundColor(Color color){
     this.previousBackgroundColor = this.lineColor;
-    this.backgroundColor = getColor();
+    this.backgroundColor = color;
   }
 
   public void moveRight(){
@@ -66,13 +73,6 @@ public abstract class Figure {
 
   public void moveDown(){
     this.y = this.y+this.dMove;
-  }
-
-  private Color getColor(){
-    int r = new Random().nextInt(255);
-    int g = new Random().nextInt(255);
-    int b = new Random().nextInt(255);
-    return new Color(r,g,b);
   }
 
 }
