@@ -115,50 +115,56 @@ public class Menu extends JFrame{
 
   public Figure verifyFocus(int x,int y,Figure fig ){
 
-    Figure figureReceived = fig;
-    int found = 0;
+    if(this.menuStatus==1){
 
-    for (int i = figs.size()-1; i >= 0; i--) {
-
-      if(figs.get(i).itsInside(x,y)){
-
-        selected = figs.get(i);
-
-        if(this.lineOrBackground==0){
-          
-          line.changeBackgroundColor(figs.get(i).getBackgroundColor());
-
-          if(fig!=null){
-
-            Color colorReceived = figs.get(i).getBackgroundColor();
-            figureReceived.changeLineColor(colorReceived);
-            fig.changeLineColor(colorReceived);
-            found = 1;
-
-          }
-
-        }else{
-
-          background.changeBackgroundColor(figs.get(i).getBackgroundColor());
-
-          if(fig!=null){
+      Figure figureReceived = fig;
+      int found = 0;
+  
+      for (int i = figs.size()-1; i >= 0; i--) {
+  
+        if(figs.get(i).itsInside(x,y)){
+  
+          selected = figs.get(i);
+  
+          if(this.lineOrBackground==0){
             
-            Color colorReceived = figs.get(i).getBackgroundColor();
-            figureReceived.changeBackgroundColor(colorReceived);
-            fig.changeBackgroundColor(selected.getBackgroundColor());
-            found = 1;
-
+            line.changeBackgroundColor(figs.get(i).getBackgroundColor());
+  
+            if(fig!=null){
+  
+              Color colorReceived = figs.get(i).getBackgroundColor();
+              figureReceived.changeLineColor(colorReceived);
+              fig.changeLineColor(colorReceived);
+              found = 1;
+  
+            }
+  
+          }else{
+  
+            background.changeBackgroundColor(figs.get(i).getBackgroundColor());
+  
+            if(fig!=null){
+              
+              Color colorReceived = figs.get(i).getBackgroundColor();
+              figureReceived.changeBackgroundColor(colorReceived);
+              fig.changeBackgroundColor(selected.getBackgroundColor());
+              found = 1;
+  
+            }
+  
           }
-
+  
+          i = 0;
         }
-
-        i = 0;
+  
       }
-
-    }
-
-    if(found==1){
-      return figureReceived;
+  
+      if(found==1){
+        return figureReceived;
+      }else{
+        return null;
+      }
+      
     }else{
       return null;
     }
