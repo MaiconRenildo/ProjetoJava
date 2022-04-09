@@ -89,6 +89,10 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
               figs.add(new Rect(x,y, patternSize,patternSize,new Color(0,0,0),new Color(255,255,255)));
               repaint();
               break;
+            case 84:
+              figs.add(new Triangle(x,y, new Color(0,0,0),new Color(255,255,255)));
+              repaint();
+              break;
             case 85:
               up_z_order();
               repaint();
