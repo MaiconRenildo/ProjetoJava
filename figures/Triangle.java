@@ -2,7 +2,8 @@ package figures;
 import java.awt.*;
 
 public class Triangle extends Figure {
-  int size=40;
+
+  int size = 40;
   int dMove = 2;
 
   public Triangle (int x, int y,Color line,Color background) {
@@ -89,4 +90,10 @@ public class Triangle extends Figure {
       this.size = this.size -this.dMove;
     }
   }
+
+  public int[] getFocusCoordinates(){
+    int[] rectArray={this.x-this.dMove-1,this.y-(this.size/2)-this.dMove-1,this.size+(this.dMove+1)*2,(this.size/2)+(this.dMove+1)*2};
+    return rectArray;
+  };
+
 }

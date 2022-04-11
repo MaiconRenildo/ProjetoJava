@@ -1,14 +1,13 @@
 package figures;
-
 import java.awt.*;
 public abstract class Figure {
 
+  public abstract int[] getFocusCoordinates();
   public abstract void increaseSize();
   public abstract void decreaseSize();
   public abstract void paint(Graphics g);
   public abstract boolean itsInside(int xCoordinate,int yCoordinate);
 
-  Color previousLineColor,previousBackgroundColor;
   Color lineColor,backgroundColor;
   int x,y;
 
@@ -30,11 +29,9 @@ public abstract class Figure {
 
   };
 
-  public void setFocus(int mouseX,int mouseY){
+  public void updateFocus(int mouseX,int mouseY){
     this.previousX = mouseX;
     this.previousY = mouseY;
-    this.previousLineColor = this.lineColor;
-    this.lineColor = new Color(255,0,0);
   }
 
   public Color getBackgroundColor(){
@@ -45,17 +42,11 @@ public abstract class Figure {
     return this.lineColor;
   }
 
-  public void removeFocus(){
-    this.lineColor = this.previousLineColor;
-  }
-
   public void changeLineColor(Color color){
-    this.previousLineColor = this.lineColor;
     this.lineColor = color; 
   }
 
   public void changeBackgroundColor(Color color){
-    this.previousBackgroundColor = this.lineColor;
     this.backgroundColor = color;
   }
 

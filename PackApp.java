@@ -14,6 +14,7 @@ class PackApp {
 
 class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
 
+    Rect rectFocus = null;
     Figure focus = null;
     ArrayList<Figure> figs = new ArrayList<Figure>();
     Menu menu = new Menu(480,480);
@@ -31,6 +32,7 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
       );
 
       this.setTitle("Java Packages");
+      this.getContentPane().setBackground(Color.white);
       this.setSize(480, 480);
       this.setVisible(true);
       this.addMouseMotionListener(this);
@@ -41,6 +43,7 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
         public void keyPressed(KeyEvent key){
 
           patternSize = 60;
+
           switch(key.getKeyCode()){
             case 9:
               changeFocus();
@@ -52,18 +55,22 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
               break;
             case 37:
               focus.moveLeft();
+              updateRectFocusPosition();
               repaint();
               break;
             case 38:
               focus.moveUp();
+              updateRectFocusPosition();
               repaint();
               break;
             case 39:
               focus.moveRight();
+              updateRectFocusPosition();
               repaint();
               break;
             case 40:
               focus.moveDown();
+              updateRectFocusPosition();
               repaint();
               break;
             case 32:
@@ -99,10 +106,12 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
               break;
             case 107:
               focus.increaseSize();
+              updateRectFocusPosition();
               repaint();
               break;
             case 109:
               focus.decreaseSize();
+              updateRectFocusPosition();
               repaint();
               break;
             case 127:
@@ -120,7 +129,9 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
     }
 
     private void changeFocus(){
+
       int size = figs.size();
+
       if(size>=1){
 
         if(focus!=null){
@@ -128,35 +139,35 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
           int index = figs.indexOf(focus);
 
           if(index<size-1){
-            focus.removeFocus();
-            focus = figs.get(index+1);
-            focus.setFocus(this.x, this.y);
-
+            this.focus = figs.get(index+1);
+            this.focus.updateFocus(this.x, this.y);
+            updateRectFocusPosition();
           }else{
-            focus.removeFocus();
-            focus = figs.get(0);
-            focus.setFocus(this.x,this.y);
-
+            this.focus = figs.get(0);
+            this.focus.updateFocus(this.x,this.y);
+            updateRectFocusPosition();
           }
           
         }else{
-          focus = figs.get(0);
-          focus.setFocus(this.x, this.y);
+          this.focus = figs.get(0);
+          this.focus.updateFocus(this.x, this.y);
+          updateRectFocusPosition();
           repaint();
         }
       }
     }
 
     private void verifyFocus(MouseEvent e){
-      if(focus!=null){
-        focus.removeFocus();
-        focus = null;
+
+      if(this.focus!=null){
+        this.focus = null;
       }
 
       for (int i = figs.size()-1; i >= 0; i--) {
-        if(figs.get(i).itsInside(e.getX(), e.getY())){
-          figs.get(i).setFocus(e.getX(), e.getY());
-          focus = figs.get(i);
+        if(this.figs.get(i).itsInside(e.getX(), e.getY())){
+          this.figs.get(i).updateFocus(e.getX(), e.getY());
+          this.focus = figs.get(i);
+          updateRectFocusPosition();;
           repaint();
           i = 0;
         }
@@ -165,14 +176,19 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
     }
 
     private void up_z_order(){
-      if(focus!=null){
-        figs.remove(focus);
-        figs.add(focus);
+      if(this.focus!=null){
+        this.figs.remove(focus);
+        this.figs.add(focus);
       }
     }
 
+    private void updateRectFocusPosition(){
+      int[] focusArray = this.focus.getFocusCoordinates();
+      this.rectFocus = new Rect(focusArray[0],focusArray[1],focusArray[2],focusArray[3],Color.red,Color.white);
+    }
+
     private void down_z_order(){
-      if(focus!=null){
+      if(this.focus!=null){
         for (int i = this.figs.size(); i >0; i--) {
           if(i==this.figs.size()){
             this.figs.add(figs.get(i-1));
@@ -180,15 +196,31 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
             this.figs.set(i,figs.get(i-1));
           }
         }
-        figs.remove(focus);
+        this.figs.remove(focus);
         this.figs.set(0,focus);
       }
     }
 
     private void drawFigures(Graphics g){
-      for(Figure i:this.figs){
-        i.paint(g);
+
+      int index = this.figs.indexOf(this.focus);
+      for(int i=0;i<this.figs.size();i++){
+        if(i==index){
+          this.rectFocus.paint(g);
+        }
+        this.figs.get(i).paint(g);
       }
+
+      // for(Figure i:this.figs){
+
+      //   if(index==this.figs.indexOf(i)){
+      //     if(this.rectFocus!=null){
+      //       this.rectFocus.paint(g);
+      //     }
+      //   }
+
+      //   i.paint(g);
+      // }
     }
 
     private void getScreenLimits(){
@@ -220,8 +252,9 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
 
     @Override
     public void mouseDragged(MouseEvent e) {
-      if(focus!=null){
-        focus.drag(e.getX(), e.getY());
+      if(this.focus!=null){
+        this.focus.drag(e.getX(), e.getY());
+        updateRectFocusPosition();
       }
       this.x = e.getX();
       this.y = e.getY();
@@ -232,8 +265,9 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
     public void mouseClicked(MouseEvent e) {
       Figure newFocus = this.menu.verifyFocus(e.getX(), e.getY(), this.focus);
       if(newFocus!=null){
-        figs.set(figs.indexOf(this.focus), newFocus);
+        this.figs.set(figs.indexOf(this.focus), newFocus);
         this.focus = newFocus;
+        updateRectFocusPosition();
       }else{
         verifyFocus(e);
       }      

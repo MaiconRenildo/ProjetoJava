@@ -1,5 +1,4 @@
 package figures;
-
 import java.awt.*;
 
 public class Line extends Figure {
@@ -121,4 +120,8 @@ public class Line extends Figure {
 
     }
 
+    public int[] getFocusCoordinates(){
+      int[] rectArray={this.x-this.dMove,this.y-this.dMove,(this.endX-this.x)+this.dMove*2,(this.endY-this.y)+this.dMove*2};
+      return rectArray;
+    };
 }

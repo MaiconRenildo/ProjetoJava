@@ -50,4 +50,8 @@ public class Rect extends Figure{
         }
     }
     
+    public int[] getFocusCoordinates(){
+        int[] rectArray={this.x-this.dMove,this.y-this.dMove,this.w+this.dMove*2,this.h+this.dMove*2};
+        return rectArray;
+    };
 }

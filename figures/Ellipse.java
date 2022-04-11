@@ -1,5 +1,4 @@
 package figures;
-
 import java.awt.*;
 
 public class Ellipse extends Figure {
@@ -66,4 +65,8 @@ public class Ellipse extends Figure {
     }
   }
 
+  public int[] getFocusCoordinates(){
+    int[] rectArray={this.x-this.dMove,this.y-this.dMove,this.w*2+this.dMove*2,this.h*2+this.dMove*2};
+    return rectArray;
+  };
 }

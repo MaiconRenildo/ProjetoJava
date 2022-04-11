@@ -58,4 +58,8 @@ public class Circle extends Figure {
     }
   }
 
+  public int[] getFocusCoordinates(){
+    int[] rectArray={this.x-this.dMove,this.y-this.dMove,this.radius*2+this.dMove*2,this.radius*2+this.dMove*2};
+    return rectArray;
+  };
 }
