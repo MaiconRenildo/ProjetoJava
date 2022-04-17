@@ -22,7 +22,7 @@ public class Ellipse extends Figure {
       g2d.drawOval(this.x,this.y, this.w*2,this.h*2);
     }
 
-    public boolean itsInside(int xCoordinate,int yCoordinate){
+    public boolean clicked(int xCoordinate,int yCoordinate){
 
     // ((x-x0)^2)/a^2 + ((y-y0)^2)/b^2 = raio^2
 

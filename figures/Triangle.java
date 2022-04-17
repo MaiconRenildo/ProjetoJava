@@ -13,7 +13,7 @@ public class Triangle extends Figure {
     this.backgroundColor = background;
   }
 
-  public boolean itsInside(int xCoordinate,int yCoordinate){
+  public boolean clicked(int xCoordinate,int yCoordinate){
       if(xCoordinate>this.x-1 && xCoordinate<this.x+this.size+1){
         int difference = xCoordinate - this.x;
 

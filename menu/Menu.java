@@ -122,7 +122,7 @@ public class Menu extends JFrame{
   
       for (int i = figs.size()-1; i >= 0; i--) {
   
-        if(figs.get(i).itsInside(x,y)){
+        if(figs.get(i).clicked(x,y)){
   
           selected = figs.get(i);
   

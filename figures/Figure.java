@@ -1,12 +1,13 @@
 package figures;
 import java.awt.*;
-public abstract class Figure {
+import interfaces.*;
+public abstract class Figure implements  IVisible {
 
   public abstract int[] getFocusCoordinates();
   public abstract void increaseSize();
   public abstract void decreaseSize();
   public abstract void paint(Graphics g);
-  public abstract boolean itsInside(int xCoordinate,int yCoordinate);
+  public abstract boolean clicked(int xCoordinate,int yCoordinate);
 
   Color lineColor,backgroundColor;
   int x,y;

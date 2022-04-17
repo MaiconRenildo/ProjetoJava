@@ -13,7 +13,7 @@ public class Circle extends Figure {
     this.lineColor = line;
   }
 
-  public boolean itsInside(int xCoordinate,int yCoordinate){
+  public boolean clicked(int xCoordinate,int yCoordinate){
 
     // (x-x0)^2 + (y-y0)^2 = raio^2
 

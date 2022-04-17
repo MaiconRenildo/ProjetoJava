@@ -220,7 +220,7 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
       this.focus = null;
 
       for (int i = figsSize()-1; i >= 0; i--) {
-        if(this.figs.get(i).itsInside(e.getX(), e.getY())){
+        if(this.figs.get(i).clicked(e.getX(), e.getY())){
           this.figs.get(i).updateFocus(e.getX(), e.getY());
           this.focus = figs.get(i);
           updateRectFocusPosition();;

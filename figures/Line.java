@@ -13,7 +13,7 @@ public class Line extends Figure {
       this.lineColor = line;
     }
 
-    public boolean itsInside(int xCoordinate,int yCoordinate){
+    public boolean clicked(int xCoordinate,int yCoordinate){
         if(xCoordinate>this.x-1 && xCoordinate<this.endX+1){
             if(yCoordinate>this.y-1 && yCoordinate<this.endY+1){
                 return true;
