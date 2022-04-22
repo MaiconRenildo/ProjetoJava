@@ -7,16 +7,16 @@ import java.util.ArrayList;
 
 public class Menu extends JFrame{
 
-  int start = 40;
-  int menuStatus = 1;
-  int lineOrBackground = 1;
-  int xLeftLimit,xRightLimit,yTopLimit,yBottomLimit;
-  
-  Figure line,background,border,area;
-  Figure selected = null;
+  private int start = 40;
+  private int menuStatus = 1;
+  private int lineOrBackground = 1;
+  private int xLeftLimit,xRightLimit,yTopLimit,yBottomLimit;
+  private Figure line,background,border;
+  private Figure selected = null;
+  private ArrayList<Figure> figs = new ArrayList<Figure>();
+  private ArrayList <Color> colors = new ArrayList<Color>();
 
-  ArrayList<Figure> figs = new ArrayList<Figure>();
-  ArrayList <Color> colors = new ArrayList<Color>();
+  protected Figure area;
   
   public Menu(int wScreen,int hScreen){
     this.defineScreenLimites(wScreen, hScreen);

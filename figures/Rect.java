@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Rect extends Figure{
 
-    int w, h;
+    private int w, h;
 
     public Rect (int x, int y, int w, int h,Color line,Color background) {
         this.x = x;

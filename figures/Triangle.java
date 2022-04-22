@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class Triangle extends Figure {
 
-  int size = 40;
-  int dMove = 2;
+  private int size = 40;
+  private int dMove = 2;
 
   public Triangle (int x, int y,Color line,Color background) {
     this.x = x;

@@ -14,12 +14,13 @@ class PackApp {
 
 class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
 
-    Rect rectFocus = null;
-    Figure focus = null;
-    ArrayList<Figure> figs = new ArrayList<Figure>();
-    Menu menu = new Menu(480,480);
-    int w,h,x,y,patternSize;
-    JLabel mousePosition;
+    private Rect rectFocus = null;
+    private Figure focus = null;
+    private ArrayList<Figure> figs = new ArrayList<Figure>();
+    private Menu menu = new Menu(480,480);
+    
+    protected int w,h,x,y,patternSize;
+    protected JLabel mousePosition;
 
     PackFrame () {
 

@@ -9,13 +9,11 @@ public abstract class Figure implements  IVisible {
   public abstract void paint(Graphics g);
   public abstract boolean clicked(int xCoordinate,int yCoordinate);
 
-  Color lineColor,backgroundColor;
-  int x,y;
-
-  int previousX = -1;
-  int previousY = -1;
-
-  int dMove = 3;
+  protected Color lineColor,backgroundColor;
+  protected int x,y;
+  protected int previousX = -1;
+  protected int previousY = -1;
+  protected int dMove = 3;
 
   public void drag(int newX,int newY){
 

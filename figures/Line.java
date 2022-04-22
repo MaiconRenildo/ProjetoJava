@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Line extends Figure {
 
-    int endX,endY;
+    private int endX,endY;
 
     public Line (int startX, int startY, int endX, int endY,Color line) {
       this.x = startX;

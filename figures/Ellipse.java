@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Ellipse extends Figure {
 
-    int w, h;
+    private int w, h;
 
     public Ellipse (int x, int y, int w, int h,Color line,Color background) {
       this.x = x;

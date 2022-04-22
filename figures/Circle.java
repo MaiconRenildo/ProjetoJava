@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Circle extends Figure {
 
-  int radius,diameter;
+  private int radius;
 
   public Circle (int x, int y, int radius,Color line,Color background) {
     this.x = x;
