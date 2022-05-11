@@ -1,9 +1,10 @@
-import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
+import java.awt.event.*;
 import javax.swing.*;
+import java.awt.*;
 import figures.*;
 import menu.Menu;
+import java.io.*;
 
 class PackApp {
     public static void main (String[] args) {
@@ -13,7 +14,6 @@ class PackApp {
 }
 
 class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
-
     private Rect rectFocus = null;
     private Figure focus = null;
     private ArrayList<Figure> figs = new ArrayList<Figure>();
@@ -22,15 +22,35 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
     protected int w,h,x,y,patternSize;
     protected JLabel mousePosition;
 
-    PackFrame () {
+    public PackFrame () {
+      
+      try {
+        FileInputStream file = new FileInputStream("proj.bin");
+        ObjectInputStream object = new ObjectInputStream(file);
+        this.figs = (ArrayList<Figure>) object.readObject();
+        object.close();
+    } catch (Exception exception) {
+        System.out.println(exception.getMessage());
+    }
 
       this.addWindowListener (
         new WindowAdapter() {
-            public void windowClosing (WindowEvent e) {
-                System.exit(0);
+            public void windowClosing(WindowEvent windowEvent) {
+                try {
+                    FileOutputStream file = new FileOutputStream("proj.bin");
+                    ObjectOutputStream object = new ObjectOutputStream(file);
+                    object.writeObject(figs);
+                    object.flush();
+                    object.close();
+                } catch (Exception exception) {
+                    System.out.println(exception.getLocalizedMessage());
+                    System.out.println(exception.getMessage());
+                    System.out.println(exception.toString());
+                }
+              System.exit(0);
             }
         }
-      );
+    );
 
       this.setTitle("Java Packages");
       this.getContentPane().setBackground(Color.white);

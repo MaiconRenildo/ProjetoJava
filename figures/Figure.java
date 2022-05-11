@@ -1,7 +1,8 @@
 package figures;
 import java.awt.*;
 import interfaces.*;
-public abstract class Figure implements  IVisible {
+import java.io.Serializable;
+public abstract class Figure implements  IVisible,Serializable {
 
   public abstract int[] getFocusCoordinates();
   public abstract void increaseSize();
