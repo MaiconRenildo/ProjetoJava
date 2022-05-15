@@ -20,6 +20,7 @@ Para executar o projeto é necessário ter o JDK instalado. Tendo-o, basta execu
 - [X] Alteração da cor da borda
 - [X] Alteração da figura em foco
 - [X] Esconder ou mostrar menu
+- [X] Salvamento dos dados em um arquivo binário
 - [ ] Digitação
 - [ ] Desenho livre
 
