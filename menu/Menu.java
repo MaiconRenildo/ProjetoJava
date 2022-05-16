@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class Menu extends JFrame{
 
-  private int start = 40;
+  private int start = 110;
   private int menuStatus = 1;
   private int lineOrBackground = 1;
   private int xLeftLimit,xRightLimit,yTopLimit,yBottomLimit;
-  private Figure line,background,border;
+  private Figure line,background,border,shapeRect,shapeTriangle,shapeCircle,shapeEllipse,horizontalLine;
   private Figure selected = null;
   private ArrayList<Figure> figs = new ArrayList<Figure>();
   private ArrayList <Color> colors = new ArrayList<Color>();
@@ -25,12 +25,36 @@ public class Menu extends JFrame{
     this.fillColors();
     this.createColorOptions();
     this.createArea();
+    this.createShapes();
+    this.createMenuDivision();
   }
 
   private void createRectsToChangeBackgrounds(){
     this.line = new Rect(8, start, 14, 14, Color.black, Color.white);
     this.background = new Rect(28, start, 14, 14, Color.black, Color.white);
   }
+
+  private void createMenuDivision(){
+    this.horizontalLine = new Rect(0, 90, 50, 2, Color.black, Color.white);
+  }
+
+  private void createShapes(){
+    this.shapeEllipse = new Ellipse(31, 40, 5, 7, Color.black, Color.white);
+    this.shapeCircle = new Circle(8, 60, 7, Color.black, Color.white);
+    this.shapeRect = new Rect(30, 62, 12, 12, Color.black, Color.white);
+    this.shapeTriangle = new Triangle(8, 50, Color.black, Color.white);
+    for (int i = 0; i<12 ; i++) {
+      this.shapeTriangle.decreaseSize();
+    }
+  }
+
+  private void drawShapes(Graphics g){
+    this.shapeRect.paint(g);
+    this.shapeEllipse.paint(g);
+    this.shapeTriangle.paint(g);
+    this.shapeCircle.paint(g);
+  }
+
 
   private void createBorder(){
     this.border = new Rect(xLeftLimit, yTopLimit, xLeftLimit+50, yBottomLimit-19, Color.black, new Color(211,211,211));
@@ -78,7 +102,9 @@ public class Menu extends JFrame{
     if(this.menuStatus==1){
       this.border.paint(g);
       this.line.paint(g);
+      this.horizontalLine.paint(g);
       this.background.paint(g);
+      this.drawShapes(g);
       for(Figure i:this.figs){
         i.paint(g);
       }
