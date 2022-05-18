@@ -11,11 +11,11 @@ public class Menu extends JFrame{
   private int menuStatus = 1;
   private int lineOrBackground = 1;
   private int xLeftLimit,xRightLimit,yTopLimit,yBottomLimit;
-  private Figure line,background,border,shapeRect,shapeTriangle,shapeCircle,shapeEllipse,horizontalLine;
+  private Figure line,background,border,horizontalLine;
   private Figure selected = null;
   private ArrayList<Figure> figs = new ArrayList<Figure>();
+  private ArrayList<Figure> figureOptions = new ArrayList<Figure>();
   private ArrayList <Color> colors = new ArrayList<Color>();
-
   protected Figure area;
   
   public Menu(int wScreen,int hScreen){
@@ -39,20 +39,19 @@ public class Menu extends JFrame{
   }
 
   private void createShapes(){
-    this.shapeEllipse = new Ellipse(31, 40, 5, 7, Color.black, Color.white);
-    this.shapeCircle = new Circle(8, 60, 7, Color.black, Color.white);
-    this.shapeRect = new Rect(30, 62, 12, 12, Color.black, Color.white);
-    this.shapeTriangle = new Triangle(8, 50, Color.black, Color.white);
+    this.figureOptions.add(new Ellipse(31, 40, 5, 7, Color.black, Color.white));
+    this.figureOptions.add(new Circle(8, 60, 7, Color.black, Color.white));
+    this.figureOptions.add(new Rect(30, 62, 12, 12, Color.black, Color.white));
+    this.figureOptions.add(new Triangle(8, 50, Color.black, Color.white));
     for (int i = 0; i<12 ; i++) {
-      this.shapeTriangle.decreaseSize();
+      this.figureOptions.get(3).decreaseSize();
     }
   }
 
   private void drawShapes(Graphics g){
-    this.shapeRect.paint(g);
-    this.shapeEllipse.paint(g);
-    this.shapeTriangle.paint(g);
-    this.shapeCircle.paint(g);
+    for(Figure i:this.figureOptions){
+      i.paint(g);
+    }
   }
 
 
@@ -137,6 +136,21 @@ public class Menu extends JFrame{
     }else{
       this.menuStatus=1;
     }
+  }
+
+
+  public int checksIfOneOfTheMenuOptionsWasClicked(int x,int y){
+    
+    for (int i = figureOptions.size()-1; i >= 0; i--) {
+      if(figureOptions.get(i).clicked(x,y)){
+        figureOptions.get(i).changeLineColor(Color.red);
+        return i+1;
+      }else{
+        figureOptions.get(i).changeLineColor(Color.black);
+        
+      }
+    }
+    return 0;
   }
 
   public Figure verifyFocus(int x,int y,Figure fig ){

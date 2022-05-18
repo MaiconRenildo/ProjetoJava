@@ -18,8 +18,9 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
     private Figure focus = null;
     private ArrayList<Figure> figs = new ArrayList<Figure>();
     private Menu menu = new Menu(480,480);
+    private int idFigureToCreate = 0;
     
-    protected int w,h,x,y,patternSize;
+    protected int w,h,x,y,patternSize=60;
     protected JLabel mousePosition;
 
     public PackFrame () {
@@ -62,8 +63,6 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
       this.addKeyListener(new KeyAdapter(){
 
         public void keyPressed(KeyEvent key){
-
-          patternSize = 60;
 
           switch(key.getKeyCode()){
             case 9:
@@ -236,7 +235,7 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
       }
     }
 
-    private void verifyFocus(MouseEvent e){
+    private boolean verifyFocus(MouseEvent e){
 
       this.focus = null;
 
@@ -244,12 +243,19 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
         if(this.figs.get(i).clicked(e.getX(), e.getY())){
           this.figs.get(i).updateFocus(e.getX(), e.getY());
           this.focus = figs.get(i);
-          updateRectFocusPosition();;
+          updateRectFocusPosition();
           repaint();
           i = 0;
         }
       }
+
       repaint();
+      if(this.focus!=null){
+        return true;
+      }else{
+        return false;
+      }
+      
     }
 
     private void up_z_order(){
@@ -334,13 +340,52 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
     public void mouseExited(MouseEvent e) { }
 
     private void verifyAndUpdateFocus(MouseEvent e ){
+
       Figure newFocus = this.menu.verifyFocus(e.getX(), e.getY(), this.focus);
+
       if(newFocus!=null){
         figs.set(indexOfFocusInFigs(), newFocus);
         this.focus = newFocus;
         updateRectFocusPosition();
       }else{
-        verifyFocus(e);
+        boolean result = verifyFocus(e);
+        if(result==false){
+
+          if(this.idFigureToCreate!=0){
+
+            int newId = this.menu.checksIfOneOfTheMenuOptionsWasClicked(e.getX(), e.getY());
+
+            if(newId==0){
+
+              if(this.idFigureToCreate==1){
+                this.figs.add(new Ellipse(x,y, patternSize/2,patternSize/4,new Color(0,0,0),new Color(255,255,255)));
+              }
+
+              if(this.idFigureToCreate==2){
+                this.figs.add(new Circle(x,y,patternSize/2,new Color(0,0,0),new Color(255,255,255)));
+              }
+
+              if(this.idFigureToCreate==3){
+                this.figs.add(new Rect(x,y, patternSize,patternSize,new Color(0,0,0),new Color(255,255,255)));
+              }
+
+
+              if(this.idFigureToCreate==4){
+                this.figs.add(new Triangle(x,y, new Color(0,0,0),new Color(255,255,255)));
+              }
+
+              this.idFigureToCreate=0;
+
+            }else{
+              this.idFigureToCreate = newId;
+            }
+            repaint();
+          }else{
+            this.idFigureToCreate = this.menu.checksIfOneOfTheMenuOptionsWasClicked(e.getX(), e.getY());
+            repaint();
+          }
+
+        }
       }
     }
 
