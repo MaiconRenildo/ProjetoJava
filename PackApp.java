@@ -18,6 +18,8 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
     private Figure focus = null;
     private ArrayList<Figure> figs = new ArrayList<Figure>();
     private Menu menu = new Menu(480,480);
+    private Graphics dbg;
+    private Image dbImage;
     private int idFigureToCreate = 0;
     
     protected int w,h,x,y,patternSize=60;
@@ -289,11 +291,18 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
       this.menu.changeMenuStatus();
     }
 
-    public void paint (Graphics g) {
+    public void paintComponent(Graphics g){
       super.paint(g);
       this.getScreenLimits();
       this.drawFigures(g);
       upMenu(g);
+    }
+
+    public void paint (Graphics g) {
+      dbImage = createImage(getWidth(),getHeight());
+      dbg = dbImage.getGraphics();
+      paintComponent(dbg);
+      g.drawImage(dbImage,0, 0, this);
     }
     
     @Override
