@@ -15,7 +15,6 @@ public class Rect extends Figure{
     }
 
     public void paint (Graphics g) {
-
       Graphics2D g2d = (Graphics2D) g;
       g2d.setColor(backgroundColor);
       g2d.fillRect(this.x,this.y, this.w,this.h);
@@ -24,13 +23,7 @@ public class Rect extends Figure{
     }
 
     public boolean clicked(int xCoordinate,int yCoordinate){
-        if(xCoordinate>=this.x && xCoordinate<=this.x+w){
-            if(yCoordinate>=this.y && yCoordinate<=this.y+h){
-                return true;
-            }
-            return false;
-        }
-        return false;
+        return ((xCoordinate>=this.x && xCoordinate<=this.x+w) && (yCoordinate>=this.y && yCoordinate<=this.y+h)) ? true : false;
     }
 
     public void changeColor(Color line,Color background){

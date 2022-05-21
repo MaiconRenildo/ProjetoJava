@@ -64,6 +64,8 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
 
         public void keyPressed(KeyEvent key){
 
+          // System.out.println(key.getKeyCode());
+
           switch(key.getKeyCode()){
             case 9:
               changeFocus();
@@ -208,54 +210,37 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
     }
 
     private boolean focusIsNotNull(){
-      if(this.focus != null)
-        return true;
-      else
-        return false;
+      return this.focus != null ? true : false; 
     }
 
     private void changeFocus(){
-
       if(figsSize() > 0){
+        if(focusIsNotNull() && (indexOfFocusInFigs() < figsSize()-1)) getFigureInFigsByIndexAndAddToFocus(indexOfFocusInFigs()+1);
+        else getFigureInFigsByIndexAndAddToFocus(0);
 
-        if(focusIsNotNull()){
-
-          if(indexOfFocusInFigs() < figsSize()-1)
-            getFigureInFigsByIndexAndAddToFocus(indexOfFocusInFigs()+1);
-          else
-            getFigureInFigsByIndexAndAddToFocus(0);
-
-          updateRectFocusPosition();
-
-        }else{
-          getFigureInFigsByIndexAndAddToFocus(0);
-          updateRectFocusPosition();
-          repaint();
-        }
+        updateRectFocusPosition();
+        repaint();
       }
     }
 
     private boolean verifyFocus(MouseEvent e){
 
-      this.focus = null;
+      this.focus = null;  
 
       for (int i = figsSize()-1; i >= 0; i--) {
-        if(this.figs.get(i).clicked(e.getX(), e.getY())){
-          this.figs.get(i).updateFocus(e.getX(), e.getY());
-          this.focus = figs.get(i);
+
+        Figure selected = figs.get(i);
+
+        if(selected.clicked(e.getX(), e.getY())){
+          selected.updateFocus(e.getX(), e.getY());
+          this.focus = selected;
           updateRectFocusPosition();
-          repaint();
           i = 0;
         }
       }
 
       repaint();
-      if(this.focus!=null){
-        return true;
-      }else{
-        return false;
-      }
-      
+      return this.focusIsNotNull();  
     }
 
     private void up_z_order(){
@@ -275,10 +260,8 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
     private void down_z_order(){
       if(focusIsNotNull()){
         for (int i = figsSize(); i > 0 ; i--) {
-          if(i == figsSize())
-            this.figs.add(figs.get(i-1));
-          else
-            this.figs.set(i,figs.get(i-1));
+          if(i == figsSize()) this.figs.add(figs.get(i-1));
+          else this.figs.set(i,figs.get(i-1));
         }
         this.figs.remove(focus);
         this.figs.set(0,focus);
@@ -287,9 +270,7 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
 
     private void drawFigures(Graphics g){
       for(int i = 0; i < figsSize(); i++){
-        if(i == indexOfFocusInFigs()){
-          this.rectFocus.paint(g);
-        }
+        if(i == indexOfFocusInFigs()) this.rectFocus.paint(g);
         this.figs.get(i).paint(g);
       }
     }
@@ -301,7 +282,7 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
 
     private void upMenu(Graphics g){     
       this.menu.changeLimits(this.getWidth(), this.getHeight());
-      this.menu.paint(g);
+      if(this.menu.getMenuStatus()==1) this.menu.paint(g);
     }
 
     private void changeMenuStatus(){
@@ -341,37 +322,37 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
 
     private void verifyAndUpdateFocus(MouseEvent e ){
 
-      Figure newFocus = this.menu.verifyFocus(e.getX(), e.getY(), this.focus);
+      Figure newFocus = this.menu.getMenuStatus() ==1 ? this.menu.verifyFocus(e.getX(), e.getY(), this.focus) : null;    
 
       if(newFocus!=null){
         figs.set(indexOfFocusInFigs(), newFocus);
         this.focus = newFocus;
         updateRectFocusPosition();
       }else{
+
         boolean result = verifyFocus(e);
-        if(result==false){
+
+        if(this.menu.getMenuStatus()==1 && result==false){
 
           if(this.idFigureToCreate!=0){
-
+  
             int newId = this.menu.checksIfOneOfTheMenuOptionsWasClicked(e.getX(), e.getY());
 
             if(newId==0){
 
-              if(this.idFigureToCreate==1){
-                this.figs.add(new Ellipse(x,y, patternSize/2,patternSize/4,new Color(0,0,0),new Color(255,255,255)));
-              }
-
-              if(this.idFigureToCreate==2){
-                this.figs.add(new Circle(x,y,patternSize/2,new Color(0,0,0),new Color(255,255,255)));
-              }
-
-              if(this.idFigureToCreate==3){
-                this.figs.add(new Rect(x,y, patternSize,patternSize,new Color(0,0,0),new Color(255,255,255)));
-              }
-
-
-              if(this.idFigureToCreate==4){
-                this.figs.add(new Triangle(x,y, new Color(0,0,0),new Color(255,255,255)));
+              switch(this.idFigureToCreate){
+                case 1:
+                  this.figs.add(new Ellipse(x,y, patternSize/2,patternSize/4,new Color(0,0,0),new Color(255,255,255)));
+                  break;
+                case 2:
+                  this.figs.add(new Circle(x,y,patternSize/2,new Color(0,0,0),new Color(255,255,255)));
+                  break;
+                case 3:
+                  this.figs.add(new Rect(x,y, patternSize,patternSize,new Color(0,0,0),new Color(255,255,255)));
+                  break;
+                case 4:
+                  this.figs.add(new Triangle(x,y, new Color(0,0,0),new Color(255,255,255)));
+                  break;
               }
 
               this.idFigureToCreate=0;
@@ -379,12 +360,13 @@ class PackFrame extends JFrame implements MouseMotionListener,MouseListener{
             }else{
               this.idFigureToCreate = newId;
             }
-            repaint();
           }else{
             this.idFigureToCreate = this.menu.checksIfOneOfTheMenuOptionsWasClicked(e.getX(), e.getY());
-            repaint();
           }
-
+          repaint();
+        }else{
+          this.menu.checksIfOneOfTheMenuOptionsWasClicked(e.getX(), e.getY());
+          this.idFigureToCreate = 0;
         }
       }
     }

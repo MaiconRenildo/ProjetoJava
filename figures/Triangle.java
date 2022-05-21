@@ -17,25 +17,13 @@ public class Triangle extends Figure {
       if(xCoordinate>this.x-1 && xCoordinate<this.x+this.size+1){
         int difference = xCoordinate - this.x;
 
-        if(difference==this.size/2){
-          if(yCoordinate<this.y+1 && yCoordinate>this.y-size-1){
-            return true;
-          }
-        }
+        if((difference==this.size/2) && (yCoordinate<this.y+1) && (yCoordinate>this.y-size-1)) return true;
 
-        if(difference<this.size/2){
-          if(yCoordinate<this.y+1 && yCoordinate>this.y-difference-1){
-            return true;
-          }
-        }
+        if((difference<this.size/2) && (yCoordinate<this.y+1) && (yCoordinate>this.y-difference-1)) return true;
 
         if(difference>this.size/2){
           int middleDifference = xCoordinate - (this.x+this.size/2);
-          if(middleDifference<this.size+1){
-            if(yCoordinate<this.y+1 && yCoordinate>((this.y-size/2)+middleDifference+1)){
-              return true;
-            }
-          }
+          if((middleDifference<this.size+1) && (yCoordinate<this.y+1) && (yCoordinate>((this.y-size/2)+middleDifference+1))) return true;
         }
       }
       return false;
@@ -66,7 +54,6 @@ public class Triangle extends Figure {
 
   public void moveRight(){
     this.x = this.x+this.dMove;
-
   }
 
   public void moveLeft(){
@@ -86,9 +73,7 @@ public class Triangle extends Figure {
   }
 
   public void decreaseSize(){
-    if(this.size>12){
-      this.size = this.size -this.dMove;
-    }
+    if(this.size>12) this.size = this.size -this.dMove;
   }
 
   public int[] getFocusCoordinates(){

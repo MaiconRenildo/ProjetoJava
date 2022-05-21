@@ -14,13 +14,7 @@ public class Line extends Figure {
     }
 
     public boolean clicked(int xCoordinate,int yCoordinate){
-        if(xCoordinate>this.x-1 && xCoordinate<this.endX+1){
-            if(yCoordinate>this.y-1 && yCoordinate<this.endY+1){
-                return true;
-            }
-            return false;
-        }
-        return false;
+      return ((xCoordinate>this.x-1 && xCoordinate<this.endX+1) && (yCoordinate>this.y-1 && yCoordinate<this.endY+1)) ? true : false;
     }
 
     public void paint (Graphics g) {
@@ -89,35 +83,28 @@ public class Line extends Figure {
     }
   
     public void decreaseSize(){
+      if(((this.endX==this.x && this.endY==this.y)==false) && ((((this.endX-this.x)<=6 && (this.endY-this.y)<=6))==false)){
 
-      if(this.endX==this.x && this.endY==this.y){
-
-      }else if((this.endX-this.x)<=6 && (this.endY-this.y)<=6){
-
-      }else{
-      
         if(this.endY == this.y){
 
           this.x = this.x+this.dMove;
           this.endX = this.endX-this.dMove;
-  
+
         }else if(this.endX == this.x){
-  
+
           this.y = this.y+this.dMove;
           this.endY = this.endY-this.dMove;
-  
+
         }else{
-  
+
           this.x = this.x+this.dMove;
           this.endX = this.endX-this.dMove;
   
           this.y = this.y+this.dMove;
           this.endY = this.endY-this.dMove;
-  
+          
         }
-      
       }
-
     }
 
     public int[] getFocusCoordinates(){

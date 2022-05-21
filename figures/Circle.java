@@ -27,11 +27,7 @@ public class Circle extends Figure {
     
     int diffSum = diffX+diffY;
 
-    if(diffSum<=(radius*radius)){
-      return true;
-    }
-
-    return false;
+    return diffSum<=(radius*radius) ? true : false ;
 }
 
   public void paint (Graphics g) {
@@ -53,9 +49,7 @@ public class Circle extends Figure {
   }
 
   public void decreaseSize(){
-    if(this.radius>6){
-      this.radius = this.radius-this.dMove;
-    }
+    if(this.radius>6) this.radius = this.radius-this.dMove;
   }
 
   public int[] getFocusCoordinates(){

@@ -41,11 +41,7 @@ public class Ellipse extends Figure {
     float second = diffY/(heigth);
     float diffSum = first+second;
 
-    if(diffSum<=1){
-      return true;
-    }
-
-    return false;
+    return  diffSum<=1 ? true : false;
   }
 
   public void changeColor(Color border,Color background){

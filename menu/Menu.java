@@ -80,7 +80,7 @@ public class Menu extends JFrame{
   private void createColorOptions(){
     start = start+10;
     for (int i = 0; i <= colors.size()-1; i++) {
-      start = start +20;
+      start = start+20;
       figs.add(new Rect(15, start, 20, 20, Color.black, colors.get(i)));
     }
   }
@@ -123,32 +123,22 @@ public class Menu extends JFrame{
   }
 
   public void changeColorToUp(){
-    if(this.lineOrBackground==0){
-      this.lineOrBackground=1;
-    }else{
-      this.lineOrBackground=0;
-    }
+    this.lineOrBackground = this.lineOrBackground == 0 ? 1 : 0;
   }
 
   public void changeMenuStatus(){
-    if(this.menuStatus==1){
-      this.menuStatus=0;
-    }else{
-      this.menuStatus=1;
-    }
+    this.menuStatus = this.menuStatus == 1 ? 0 : 1;
   }
 
+  public int getMenuStatus(){
+    return this.menuStatus;
+  }
 
   public int checksIfOneOfTheMenuOptionsWasClicked(int x,int y){
-    
     for (int i = figureOptions.size()-1; i >= 0; i--) {
-      if(figureOptions.get(i).clicked(x,y)){
-        figureOptions.get(i).changeLineColor(Color.red);
-        return i+1;
-      }else{
-        figureOptions.get(i).changeLineColor(Color.black);
-        
-      }
+      selected = figureOptions.get(i);
+      selected.changeLineColor(selected.clicked(x,y) ? Color.red : Color.black);
+      if(selected.clicked(x,y)) return i+1;
     }
     return 0;
   }
@@ -161,49 +151,33 @@ public class Menu extends JFrame{
       int found = 0;
   
       for (int i = figs.size()-1; i >= 0; i--) {
+        
+        selected = figs.get(i);
+
+        if(selected.clicked(x,y)){
   
-        if(figs.get(i).clicked(x,y)){
-  
-          selected = figs.get(i);
-  
-          if(this.lineOrBackground==0){
-            
-            line.changeBackgroundColor(figs.get(i).getBackgroundColor());
-  
-            if(fig!=null){
-  
-              Color colorReceived = figs.get(i).getBackgroundColor();
-              figureReceived.changeLineColor(colorReceived);
+          boolean lOrb = this.lineOrBackground == 0 ? true : false;
+
+          if(lOrb) line.changeBackgroundColor(selected.getBackgroundColor());
+          else background.changeBackgroundColor(selected.getBackgroundColor());
+
+          if(fig!=null){
+            Color colorReceived = selected.getBackgroundColor();
+            found = 1;
+
+            if(lOrb){
+              figureReceived.changeLineColor(colorReceived); 
               fig.changeLineColor(colorReceived);
-              found = 1;
-  
-            }
-  
-          }else{
-  
-            background.changeBackgroundColor(figs.get(i).getBackgroundColor());
-  
-            if(fig!=null){
-              
-              Color colorReceived = figs.get(i).getBackgroundColor();
+            }else{
               figureReceived.changeBackgroundColor(colorReceived);
               fig.changeBackgroundColor(selected.getBackgroundColor());
-              found = 1;
-  
-            }
-  
-          }
-  
+            } 
+          } 
           i = 0;
         }
-  
       }
   
-      if(found==1){
-        return figureReceived;
-      }else{
-        return null;
-      }
+      return found == 1 ? figureReceived : null;
       
     }else{
       return null;
