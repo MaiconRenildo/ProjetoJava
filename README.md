@@ -1,6 +1,11 @@
 # Projeto Java
 Editor gráfico vetorial desenvolvido na disciplina Linguagem de Programação 2 do curso de Ciência da computação da UERJ
 
+<div align="center" >
+<img src="https://user-images.githubusercontent.com/63758491/185944382-b0e7ad3a-11e1-44be-b281-53a9020610e4.png"/>
+</div>
+
+
 ## Execução
 Para executar o projeto é necessário ter o JDK instalado. Tendo-o, basta executar os seguintes comandos:
 ```
